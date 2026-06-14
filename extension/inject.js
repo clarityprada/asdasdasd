@@ -1,9 +1,9 @@
 (() => {
   'use strict';
 
-  if (window.__paschaAlwaysOnBypassInstalled) return;
-  window.__paschaAlwaysOnBypassInstalled = true;
-  window.__paschaBypassAlwaysOn = true;
+  if (window.__clarityPradaAlwaysOnBypassInstalled) return;
+  window.__clarityPradaAlwaysOnBypassInstalled = true;
+  window.__clarityPradaBypassAlwaysOn = true;
 
   function isTikTokUploadRoute() {
     const href = String(window.location && window.location.href || '');

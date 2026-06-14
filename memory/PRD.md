@@ -1,36 +1,44 @@
-# Pascha Extension — Visual Revamp
+# ClarityPrada Extension — Visual Revamp + Rename
 
 ## Original problem statement
-"I want to completely revamp the look of my extension leaving all of my original code intact only changing visuals."
+1. "I want to completely revamp the look of my extension leaving all of my original code intact only changing visuals."
+2. "Change everything that says pascha to clarityprada."
 
 ## Source
-GitHub: https://github.com/clarityprada/asdasdasd (Pascha Chrome MV3 extension — TikTok video patcher)
-
-## Constraint
-- All JavaScript logic must remain 100% untouched (popup.js, content.js, inject.js, manifest.json)
-- Only visual layer (popup.html — markup + CSS) may change
-- All element IDs, data-i18n attributes, data-state hook, body.has-file class hook, .cu-warning-body selector must be preserved
+GitHub: https://github.com/clarityprada/asdasdasd (originally "Pascha" Chrome MV3 extension — TikTok video patcher)
 
 ## Design direction (user reference)
 - Dark modern minimal aesthetic with purple accents
-- Inspired by ClarityPrada reference image (deep blacks, glowing purple, anime-eye style hero, spaced wordmark, dashed dropzone, big purple CTA, status pill, 3 pillar footer)
+- Inspired by ClarityPrada reference image (deep blacks, glowing red-on-purple eye motif, "CLARITY**PRADA**" wordmark with PRADA in purple, dashed cloud dropzone, big purple CTA, status pill, SILENT/PRECISE/PRIVATE pillar footer)
 
 ## What's been implemented (2026-01)
-- Rewrote `/app/extension/popup.html` only
-  - Outfit + JetBrains Mono fonts
-  - Layered radial-gradient background with subtle noise grain
-  - Branded header (V-shaped chevron mark + gradient PASCHA wordmark + pulsing live dot)
-  - Hero panel with central red-on-purple glowing eye motif, "PAS**CHA**" wordmark and "SILENT · SHARP · PATCHED" tagline
-  - Animated dashed dropzone (transitions to solid purple border via `body.has-file` hook)
-  - Cloud-upload SVG icon with glow
-  - Big gradient purple PATCH button with shimmer sweep, hover lift, animated arrow
-  - Status bar styled by `data-state` (idle / processing / success / error) — each with distinct color and dot indicator
-  - Bottom 3-pillar row: SILENT / PRECISE / PRIVATE
-  - Re-styled file size warning modal: backdrop blur, red kicker pill, dark surface card
-- Zero changes to popup.js, content.js, inject.js, manifest.json (verified via diff)
-- Packaged: `/app/pascha_revamped.zip` (loadable via Chrome → chrome://extensions → Load unpacked → /app/extension)
 
-## Future / Backlog (suggestions)
-- P2: Show selected filename inside the dropzone (currently shows in status bar). Would require a 2-line addition in popup.js.
-- P2: Add success/error toast micro-animation on patch complete.
-- P2: Localized copy via Chrome i18n APIs (extension already has data-i18n hooks).
+### Visual revamp (popup.html)
+- Outfit + JetBrains Mono fonts
+- Layered radial-gradient background with subtle noise grain
+- Branded header: chevron mark + gradient "CLARITY**PRADA**" wordmark + pulsing live dot
+- Hero panel: central red-on-purple glowing eye motif, "CLARITY**PRADA**" wordmark, "SILENT · SHARP · CLARITY" tag
+- Animated dashed dropzone (transitions to solid purple via `body.has-file` hook)
+- Cloud-upload SVG icon with glow
+- Gradient purple PATCH button with shimmer sweep, hover lift, animated arrow
+- Status bar styled by `data-state` (idle / processing / success / error) with colored dot indicators
+- 3-pillar footer: SILENT / PRECISE / PRIVATE
+- Re-styled file size warning modal with backdrop blur
+
+### Rename Pascha → ClarityPrada (all files)
+- `manifest.json`: name, description, default_title
+- `popup.js`: COPY.title, buildClarityPradaPatch fn, filename suffix `_clarityprada_patched.mp4`
+- `inject.js`: window globals `__clarityPradaAlwaysOnBypassInstalled`, `__clarityPradaBypassAlwaysOn`
+- `popup.html`: header h1, hero wordmark, aria-label
+- `README.txt`: install instructions
+- All core MP4-patch logic, video parsing, fake-sample construction, TikTok bypass logic unchanged
+- Verified: `grep -nir pascha /app/extension` returns ZERO matches
+
+## Install
+- Folder: `/app/extension/` — Chrome → `chrome://extensions` → Developer mode → Load unpacked
+- Packaged zip: `/app/clarityprada.zip`
+
+## Future / Backlog
+- P2 — Show selected filename inside the dropzone itself (not just status bar). ~2 lines in popup.js.
+- P2 — Success toast micro-animation on patch completion.
+- P2 — Localized copy via Chrome i18n APIs (data-i18n hooks already in place).

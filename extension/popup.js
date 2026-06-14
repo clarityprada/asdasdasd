@@ -13,7 +13,7 @@
   const SIZE_WARNING_BYTES = 50 * 1024 * 1024;
 
   const COPY = {
-    title: 'Pascha',
+    title: 'ClarityPrada',
     selectVideo: 'Choose video',
     patchDownload: 'PATCH',
     ready: 'Ready',
@@ -469,7 +469,7 @@
   }
 
 
-  function buildPaschaPatch(file, bytes) {
+  function buildClarityPradaPatch(file, bytes) {
     const top = findTop(bytes);
     const moovBytes = bytes.slice(top.moov.start, top.moov.end);
     const mdatBytes = bytes.slice(top.mdat.start, top.mdat.end);
@@ -502,7 +502,7 @@
     const originalName = file.name.replace(/\.[^/.]+$/, '');
     return {
       output,
-      filename: `${originalName}_pascha_patched.mp4`,
+      filename: `${originalName}_clarityprada_patched.mp4`,
       realSamples: info.video.stsz.sampleCount,
       fakeSamples: info.fakeCount,
       warningDetails: collectWarningDetails(file, info),
@@ -533,7 +533,7 @@
 
     try {
       const bytes = new Uint8Array(await selectedFile.arrayBuffer());
-      const patch = buildPaschaPatch(selectedFile, bytes);
+      const patch = buildClarityPradaPatch(selectedFile, bytes);
       if (patch.warningDetails && patch.warningDetails.length) showSizeWarning(patch.warningDetails);
       setStatus('patched', 'processing', { realSamples: patch.realSamples, fakeSamples: patch.fakeSamples });
 

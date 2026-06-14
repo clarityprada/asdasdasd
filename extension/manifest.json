@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Pascha",
+  "name": "ClarityPrada",
   "version": "2.1.0",
-  "description": "Pascha video tool.",
+  "description": "ClarityPrada video tool.",
   "permissions": [
     "downloads"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Pascha",
+    "default_title": "ClarityPrada",
     "default_icon": {
       "128": "icons/icon1.png"
     }
