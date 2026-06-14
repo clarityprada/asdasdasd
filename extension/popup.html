@@ -93,21 +93,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(139, 92, 246, 0.05));
+      overflow: hidden;
+      background: #0e0a1c;
       border: 1px solid var(--border-strong);
       box-shadow:
         0 0 0 1px rgba(139, 92, 246, 0.08),
         0 6px 18px -8px rgba(139, 92, 246, 0.55);
     }
 
-    .cu-mark svg {
-      width: 16px;
-      height: 16px;
-      color: var(--purple-400);
-      filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.7));
+    .cu-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 58% 60%;
+      display: block;
+      transform: scale(1.4);
     }
 
     h1 {
@@ -141,51 +144,31 @@
     /* ===== HERO ===== */
     .cu-hero {
       position: relative;
-      height: 116px;
+      height: 150px;
       border-radius: 14px;
       overflow: hidden;
       border: 1px solid var(--border);
+      background: #0c0820;
+    }
+
+    .cu-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 58% 55%;
+      display: block;
+      filter: saturate(1.1) contrast(1.05);
+    }
+
+    .cu-hero-vignette {
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(60% 80% at 50% 50%, rgba(139, 92, 246, 0.35) 0%, transparent 70%),
-        linear-gradient(180deg, #1a1235 0%, #0c0820 100%);
-    }
-
-    .cu-hero-eye {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 70px;
-      height: 70px;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cu-hero-eye::before,
-    .cu-hero-eye::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-    }
-
-    .cu-hero-eye::before {
-      width: 70px;
-      height: 70px;
-      background: radial-gradient(circle, rgba(167, 139, 250, 0.55) 0%, rgba(139, 92, 246, 0.0) 70%);
-      filter: blur(2px);
-    }
-
-    .cu-hero-eye::after {
-      width: 14px;
-      height: 14px;
-      background: var(--accent-red);
-      box-shadow:
-        0 0 12px var(--accent-red),
-        0 0 28px rgba(239, 43, 85, 0.8),
-        0 0 48px rgba(239, 43, 85, 0.45);
-      transform: rotate(45deg) skew(-10deg, -10deg);
-      border-radius: 30% 70% 30% 70%;
+        linear-gradient(180deg, rgba(7, 5, 13, 0) 35%, rgba(7, 5, 13, 0.75) 80%, rgba(7, 5, 13, 0.92) 100%),
+        linear-gradient(90deg, rgba(7, 5, 13, 0.55) 0%, rgba(7, 5, 13, 0) 35%);
+      pointer-events: none;
     }
 
     .cu-hero-title {
@@ -199,12 +182,13 @@
       color: var(--text-0);
       text-transform: uppercase;
       line-height: 1;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
     }
 
     .cu-hero-title em {
       font-style: normal;
       color: var(--purple-400);
-      text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.6), 0 2px 12px rgba(0, 0, 0, 0.8);
     }
 
     .cu-hero-tag {
@@ -215,8 +199,9 @@
       font-size: 8.5px;
       font-weight: 500;
       letter-spacing: 0.28em;
-      color: var(--text-2);
+      color: var(--text-1);
       text-transform: uppercase;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
     }
 
     .cu-hero-grain {
@@ -512,7 +497,7 @@
     /* ===== FOOTER PILLARS ===== */
     .cu-pillars {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       padding-top: 4px;
     }
@@ -664,10 +649,7 @@
     <header class="cu-header">
       <div class="cu-brand-row">
         <div class="cu-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 3L12 20L19 3" />
-            <path d="M9 11L12 14L15 11" />
-          </svg>
+          <img src="icons/icon128.png" alt="">
         </div>
         <div>
           <h1 data-i18n="title">CLARITYPRADA</h1>
@@ -677,10 +659,10 @@
     </header>
 
     <div class="cu-hero" aria-hidden="true">
-      <div class="cu-hero-grain"></div>
-      <div class="cu-hero-eye"></div>
+      <img class="cu-hero-img" src="icons/logo.png" alt="">
+      <div class="cu-hero-vignette"></div>
       <div class="cu-hero-title">CLARITY<em>PRADA</em></div>
-      <div class="cu-hero-tag">SILENT · SHARP · CLARITY</div>
+      <div class="cu-hero-tag">SHARP · CLARITY · PRECISION</div>
     </div>
 
     <section class="cu-card" aria-label="ClarityPrada controls">
@@ -710,13 +692,6 @@
     </section>
 
     <div class="cu-pillars" aria-hidden="true">
-      <div class="cu-pillar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-        <span class="cu-pillar-label">SILENT</span>
-      </div>
       <div class="cu-pillar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="9" />
