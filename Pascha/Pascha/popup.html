@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 12px;
+      color: #111;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f2f2f2;
+    }
+
+    .cu-shell {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cu-header,
+    .cu-card {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 4px;
+      padding: 12px;
+      box-shadow: none;
+    }
+
+    .cu-brand-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cu-mark {
+      display: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 800;
+      text-transform: none;
+    }
+
+    .cu-subtitle {
+      margin: 8px 0 0;
+      color: #222;
+      font-size: 12px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .cu-method {
+      display: block;
+      margin-top: 10px;
+      padding: 5px 7px;
+      background: #ffe7e7;
+      color: #900;
+      border: 1px solid #900;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .cu-lang {
+      display: flex;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    .lang-btn {
+      padding: 4px 7px;
+      border: 1px solid #000;
+      border-radius: 3px;
+      background: #fff;
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lang-btn.is-active {
+      background: #000;
+      color: #fff;
+    }
+
+    .cu-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cu-field-label {
+      display: block;
+      margin: 0 0 6px;
+      color: #000;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      background: #fff;
+      color: #000;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      background: #ffeb3b;
+      color: #000;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #fff;
+    }
+
+    button.patch-btn {
+      background: #f44;
+      color: #fff;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    #status {
+      min-height: 34px;
+      margin: 0;
+      padding: 10px;
+      color: #000;
+      background: #eee;
+      border: 2px solid #000;
+      border-radius: 4px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .cu-warning-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background: rgba(255,255,255,0.8);
+    }
+
+    .cu-warning-overlay[hidden] {
+      display: none;
+    }
+
+    .cu-warning-overlay:not([hidden]) {
+      display: flex;
+    }
+
+    .cu-warning-modal {
+      width: 100%;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 4px;
+      padding: 14px;
+    }
+
+    .cu-warning-kicker,
+    .cu-warning-title,
+    .cu-warning-body,
+    .cu-warning-close {
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+
+    .cu-warning-kicker {
+      display: inline-block;
+      padding: 4px 6px;
+      background: #ffdede;
+      color: #900;
+      border: 1px solid #900;
+      border-radius: 3px;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .cu-warning-title {
+      color: #000;
+      font-size: 16px;
+    }
+
+    .cu-warning-body {
+      color: #111;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .cu-warning-close {
+      width: 100%;
+      border: 2px solid #000;
+      background: #ffeb3b;
+      color: #000;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="cu-shell">
+    <header class="cu-header">
+      <div class="cu-brand-row">
+        <div class="cu-mark" aria-hidden="true"></div>
+        <div>
+          <h1 data-i18n="title">Pascha</h1>
+        </div>
+      </div>
+    </header>
+
+    <section class="cu-card" aria-label="Pascha controls">
+      <label class="cu-field-label" for="fileInput" data-i18n="selectVideo">Choose video</label>
+      <input type="file" id="fileInput" accept="video/*">
+      <button class="patch-btn" id="patchBtn" disabled type="button" data-i18n="patchDownload">PATCH</button>
+      <div id="status" data-state="idle" data-i18n="ready">Ready</div>
+    </section>
+  </main>
+
+  <div class="cu-warning-overlay" id="sizeWarning" role="dialog" aria-modal="true" aria-labelledby="sizeWarningTitle" hidden>
+    <div class="cu-warning-modal">
+      <span class="cu-warning-kicker" data-i18n="sizeWarningKicker">File size warning</span>
+      <h2 class="cu-warning-title" id="sizeWarningTitle" data-i18n="sizeWarningTitle">Video exceeds recommended settings</h2>
+      <p class="cu-warning-body" data-i18n="sizeWarningBody">
+        The uploaded video exceeds the recommended upload settings. Recommended maximum: 50 MB, 1080p, 60 FPS.
+      </p>
+      <button class="cu-warning-close" id="sizeWarningClose" type="button" data-i18n="close">Close</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
