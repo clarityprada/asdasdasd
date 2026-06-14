@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-0: #07050d;
+      --bg-1: #0e0a1c;
+      --bg-2: #15102b;
+      --surface: rgba(22, 16, 42, 0.72);
+      --surface-2: rgba(30, 22, 58, 0.55);
+      --border: rgba(139, 92, 246, 0.18);
+      --border-strong: rgba(139, 92, 246, 0.42);
+      --purple-500: #8b5cf6;
+      --purple-400: #a78bfa;
+      --purple-300: #c4b5fd;
+      --purple-600: #7c3aed;
+      --accent-red: #ef2b55;
+      --text-0: #f5f3ff;
+      --text-1: #cfc6e8;
+      --text-2: #8a82a6;
+      --text-3: #5b556e;
+      --success: #22d3a3;
+      --error: #ff6b81;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 360px;
+      min-height: 520px;
+      color: var(--text-0);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      background:
+        radial-gradient(120% 60% at 50% -10%, rgba(139, 92, 246, 0.28) 0%, rgba(139, 92, 246, 0.04) 45%, transparent 70%),
+        radial-gradient(80% 50% at 100% 100%, rgba(124, 58, 237, 0.18) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .cu-shell {
+      position: relative;
+      z-index: 1;
+      padding: 18px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ===== HEADER ===== */
+    .cu-header {
+      position: relative;
+      padding: 6px 4px 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cu-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cu-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(139, 92, 246, 0.05));
+      border: 1px solid var(--border-strong);
+      box-shadow:
+        0 0 0 1px rgba(139, 92, 246, 0.08),
+        0 6px 18px -8px rgba(139, 92, 246, 0.55);
+    }
+
+    .cu-mark svg {
+      width: 16px;
+      height: 16px;
+      color: var(--purple-400);
+      filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.7));
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-0);
+      background: linear-gradient(90deg, #ffffff 0%, #ffffff 35%, var(--purple-400) 65%, var(--purple-300) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cu-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--purple-400);
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.9);
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* ===== HERO ===== */
+    .cu-hero {
+      position: relative;
+      height: 116px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(60% 80% at 50% 50%, rgba(139, 92, 246, 0.35) 0%, transparent 70%),
+        linear-gradient(180deg, #1a1235 0%, #0c0820 100%);
+    }
+
+    .cu-hero-eye {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 70px;
+      height: 70px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cu-hero-eye::before,
+    .cu-hero-eye::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .cu-hero-eye::before {
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.55) 0%, rgba(139, 92, 246, 0.0) 70%);
+      filter: blur(2px);
+    }
+
+    .cu-hero-eye::after {
+      width: 14px;
+      height: 14px;
+      background: var(--accent-red);
+      box-shadow:
+        0 0 12px var(--accent-red),
+        0 0 28px rgba(239, 43, 85, 0.8),
+        0 0 48px rgba(239, 43, 85, 0.45);
+      transform: rotate(45deg) skew(-10deg, -10deg);
+      border-radius: 30% 70% 30% 70%;
+    }
+
+    .cu-hero-title {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: var(--text-0);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .cu-hero-title em {
+      font-style: normal;
+      color: var(--purple-400);
+      text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+    }
+
+    .cu-hero-tag {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      color: var(--text-2);
+      text-transform: uppercase;
+    }
+
+    .cu-hero-grain {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 14px 14px;
+      mix-blend-mode: overlay;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* ===== CARD ===== */
+    .cu-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      background: transparent;
+      border: none;
+    }
+
+    .cu-section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-2);
+    }
+
+    .cu-section-label::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--purple-400);
+      box-shadow: 0 0 8px var(--purple-400);
+    }
+
+    .cu-field-label {
+      display: none;
+    }
+
+    /* File input — hidden visually, kept functional */
+    .cu-file-zone {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 140px;
+      padding: 22px 16px;
+      border-radius: 14px;
+      border: 1.5px dashed var(--border-strong);
+      background:
+        linear-gradient(180deg, rgba(139, 92, 246, 0.06), rgba(139, 92, 246, 0.02));
+      cursor: pointer;
+      transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+      overflow: hidden;
+    }
+
+    .cu-file-zone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(139, 92, 246, 0.18), transparent 70%);
+      opacity: 0;
+      transition: opacity 280ms ease;
+      pointer-events: none;
+    }
+
+    .cu-file-zone:hover {
+      border-color: var(--purple-400);
+      background:
+        linear-gradient(180deg, rgba(139, 92, 246, 0.12), rgba(139, 92, 246, 0.04));
+    }
+
+    .cu-file-zone:hover::before {
+      opacity: 1;
+    }
+
+    body.has-file .cu-file-zone {
+      border-style: solid;
+      border-color: var(--purple-500);
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.16), rgba(139, 92, 246, 0.06));
+    }
+
+    .cu-file-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid var(--border-strong);
+      color: var(--purple-400);
+      transition: transform 320ms ease;
+    }
+
+    .cu-file-zone:hover .cu-file-icon {
+      transform: translateY(-2px);
+    }
+
+    .cu-file-icon svg {
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.55));
+    }
+
+    .cu-file-primary {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-0);
+      letter-spacing: 0.01em;
+    }
+
+    .cu-file-secondary {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--purple-400);
+      letter-spacing: 0.02em;
+    }
+
+    body.has-file .cu-file-secondary {
+      color: var(--success);
+    }
+
+    /* Hidden but accessible file input */
+    input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== BUTTON ===== */
+    button {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, var(--purple-500) 0%, var(--purple-600) 100%);
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow:
+        0 0 0 1px rgba(167, 139, 250, 0.35) inset,
+        0 10px 28px -12px rgba(139, 92, 246, 0.85),
+        0 0 0 0 rgba(139, 92, 246, 0.4);
+      transition: transform 180ms ease, box-shadow 220ms ease, filter 180ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -120%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transition: left 700ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+      box-shadow:
+        0 0 0 1px rgba(167, 139, 250, 0.6) inset,
+        0 14px 36px -12px rgba(139, 92, 246, 0.95),
+        0 0 0 4px rgba(139, 92, 246, 0.15);
+    }
+
+    button:hover:not(:disabled)::after {
+      left: 130%;
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.25), rgba(124, 58, 237, 0.2));
+      color: rgba(245, 243, 255, 0.4);
+      cursor: not-allowed;
+      box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.15) inset;
+    }
+
+    button.patch-btn .arrow {
+      font-size: 14px;
+      transition: transform 220ms ease;
+    }
+
+    button.patch-btn:hover:not(:disabled) .arrow {
+      transform: translateX(4px);
+    }
+
+    button.secondary {
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid var(--border-strong);
+      color: var(--text-0);
+      box-shadow: none;
+    }
+
+    /* ===== STATUS ===== */
+    #status {
+      margin: 0;
+      min-height: 44px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      color: var(--text-1);
+      background: rgba(22, 16, 42, 0.6);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    #status::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-3);
+      box-shadow: 0 0 0 0 transparent;
+    }
+
+    #status[data-state="idle"]::before {
+      background: var(--text-2);
+    }
+
+    #status[data-state="processing"] {
+      color: var(--purple-300);
+      border-color: var(--border-strong);
+      background: rgba(139, 92, 246, 0.08);
+    }
+
+    #status[data-state="processing"]::before {
+      background: var(--purple-400);
+      box-shadow: 0 0 8px var(--purple-400);
+      animation: pulse-dot 1.2s ease-in-out infinite;
+    }
+
+    #status[data-state="success"] {
+      color: var(--success);
+      border-color: rgba(34, 211, 163, 0.35);
+      background: rgba(34, 211, 163, 0.06);
+    }
+
+    #status[data-state="success"]::before {
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    #status[data-state="error"] {
+      color: var(--error);
+      border-color: rgba(255, 107, 129, 0.4);
+      background: rgba(255, 107, 129, 0.06);
+    }
+
+    #status[data-state="error"]::before {
+      background: var(--error);
+      box-shadow: 0 0 10px var(--error);
+    }
+
+    /* ===== FOOTER PILLARS ===== */
+    .cu-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .cu-pillar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 6px;
+      border-radius: 10px;
+      background: rgba(22, 16, 42, 0.45);
+      border: 1px solid var(--border);
+    }
+
+    .cu-pillar svg {
+      width: 16px;
+      height: 16px;
+      color: var(--purple-400);
+    }
+
+    .cu-pillar-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-1);
+    }
+
+    /* ===== WARNING OVERLAY ===== */
+    .cu-warning-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(7, 5, 13, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 50;
+    }
+
+    .cu-warning-overlay[hidden] {
+      display: none;
+    }
+
+    .cu-warning-overlay:not([hidden]) {
+      display: flex;
+      animation: fadeIn 200ms ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cu-warning-modal {
+      width: 100%;
+      background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow:
+        0 24px 60px -20px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(139, 92, 246, 0.1) inset;
+      animation: modalIn 240ms ease;
+    }
+
+    @keyframes modalIn {
+      from { transform: translateY(8px) scale(0.97); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .cu-warning-kicker {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 4px 9px;
+      background: rgba(255, 107, 129, 0.1);
+      color: var(--error);
+      border: 1px solid rgba(255, 107, 129, 0.35);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .cu-warning-title {
+      margin: 0 0 10px;
+      color: var(--text-0);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.3;
+    }
+
+    .cu-warning-body {
+      margin: 0 0 16px;
+      color: var(--text-1);
+      font-size: 12px;
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    .cu-warning-close {
+      width: 100%;
+      min-height: 42px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid var(--border-strong);
+      color: var(--text-0);
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: none;
+      transition: background 200ms ease, border-color 200ms ease;
+    }
+
+    .cu-warning-close:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--purple-400);
+    }
+
+    .cu-warning-close::after {
+      display: none;
+    }
+
+    /* Hide unused elements that still exist in markup for compatibility */
+    .cu-lang {
+      display: none;
+    }
+    .cu-method {
+      display: none;
+    }
+    .cu-subtitle {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="cu-shell">
+    <header class="cu-header">
+      <div class="cu-brand-row">
+        <div class="cu-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 3L12 20L19 3" />
+            <path d="M9 11L12 14L15 11" />
+          </svg>
+        </div>
+        <div>
+          <h1 data-i18n="title">PASCHA</h1>
+        </div>
+      </div>
+      <div class="cu-status-dot" aria-hidden="true"></div>
+    </header>
+
+    <div class="cu-hero" aria-hidden="true">
+      <div class="cu-hero-grain"></div>
+      <div class="cu-hero-eye"></div>
+      <div class="cu-hero-title">PAS<em>CHA</em></div>
+      <div class="cu-hero-tag">SILENT · SHARP · PATCHED</div>
+    </div>
+
+    <section class="cu-card" aria-label="Pascha controls">
+      <div class="cu-section-label">
+        <span data-i18n="selectVideo">SELECT VIDEO</span>
+      </div>
+
+      <label class="cu-file-zone" for="fileInput" data-testid="file-drop-zone">
+        <div class="cu-file-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.5 18a4.5 4.5 0 0 0 0-9h-1.13a7 7 0 1 0-13.36 3" />
+            <polyline points="9 14 12 11 15 14" />
+            <line x1="12" y1="11" x2="12" y2="20" />
+          </svg>
+        </div>
+        <div class="cu-file-primary">Drag &amp; drop your video</div>
+        <div class="cu-file-secondary">or click to browse</div>
+        <input type="file" id="fileInput" accept="video/*" data-testid="file-input">
+      </label>
+
+      <button class="patch-btn" id="patchBtn" disabled type="button" data-testid="patch-button">
+        <span data-i18n="patchDownload">PATCH</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </button>
+
+      <div id="status" data-state="idle" data-i18n="ready" data-testid="status-display">Ready</div>
+    </section>
+
+    <div class="cu-pillars" aria-hidden="true">
+      <div class="cu-pillar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span class="cu-pillar-label">SILENT</span>
+      </div>
+      <div class="cu-pillar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="5" />
+          <line x1="12" y1="19" x2="12" y2="22" />
+          <line x1="2" y1="12" x2="5" y2="12" />
+          <line x1="19" y1="12" x2="22" y2="12" />
+        </svg>
+        <span class="cu-pillar-label">PRECISE</span>
+      </div>
+      <div class="cu-pillar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        <span class="cu-pillar-label">PRIVATE</span>
+      </div>
+    </div>
+  </main>
+
+  <div class="cu-warning-overlay" id="sizeWarning" role="dialog" aria-modal="true" aria-labelledby="sizeWarningTitle" hidden>
+    <div class="cu-warning-modal">
+      <span class="cu-warning-kicker" data-i18n="sizeWarningKicker">File size warning</span>
+      <h2 class="cu-warning-title" id="sizeWarningTitle" data-i18n="sizeWarningTitle">Video exceeds recommended settings</h2>
+      <p class="cu-warning-body" data-i18n="sizeWarningBody">
+        The uploaded video exceeds the recommended upload settings. Recommended maximum: 50 MB, 1080p, 60 FPS.
+      </p>
+      <button class="cu-warning-close" id="sizeWarningClose" type="button" data-i18n="close" data-testid="warning-close-button">Close</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
